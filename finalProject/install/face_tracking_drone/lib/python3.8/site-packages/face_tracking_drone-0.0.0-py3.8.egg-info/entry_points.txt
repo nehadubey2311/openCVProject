@@ -1,0 +1,3 @@
+[console_scripts]
+drone_node = face_tracking_drone.drone_node:main
+
