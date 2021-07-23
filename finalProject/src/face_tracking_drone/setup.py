@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'drone_node = face_tracking_drone.drone_node:main',
             'opencv_node = face_tracking_drone.opencv_node:main',
+            'drive_node = face_tracking_drone.drive_node:main'
         ],
     },
 )

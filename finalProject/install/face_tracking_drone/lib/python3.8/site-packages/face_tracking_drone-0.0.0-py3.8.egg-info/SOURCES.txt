@@ -9,7 +9,9 @@ setup.py
 ../../build/face_tracking_drone/face_tracking_drone.egg-info/top_level.txt
 ../../build/face_tracking_drone/face_tracking_drone.egg-info/zip-safe
 face_tracking_drone/__init__.py
+face_tracking_drone/drive_node.py
 face_tracking_drone/drone_node.py
+face_tracking_drone/opencv_node.py
 resource/face_tracking_drone
 test/test_copyright.py
 test/test_flake8.py

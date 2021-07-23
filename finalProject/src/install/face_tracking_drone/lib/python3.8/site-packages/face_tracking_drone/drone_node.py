@@ -1,7 +1,6 @@
 # This node connects with drone and captures video frames
 # it will then publishs frames to /camera_frame topic
 import rclpy
-import numpy
 from rclpy.node import Node
 from sensor_msgs.msg import CameraInfo, Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -22,23 +21,28 @@ class DroneNode(Node):
         self.i = 0
         # Create a VideoCapture object
         # The argument '0' gets the default webcam.
-        # self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(0)
         # Used to convert between ROS and OpenCV images
         self.br = CvBridge()
 
     def timer_callback(self):
-        drone = Tello()
-        drone.connect()
-        print(drone.get_battery())
-        drone.streamon()
+        # drone = Tello()
+        # drone.connect()
+        # print(drone.get_battery())
+        # drone.streamon()
         while True:
-            img = drone.get_frame_read().frame
+            # Capture frame-by-frame
+            # This method returns True/False as well
+            # as the video frame.
+            ret, img = self.cap.read()
+            # img = drone.get_frame_read().frame
             img = cv2.resize(img, (360, 240))
             image_message = self.br.cv2_to_imgmsg(img)
             # cv2.imshow("Image", img)
             # cv2.waitKey(1)
-            self.publisher_.publish(image_message)
-            self.get_logger().info('Publishing images')
+            if ret == True:
+                self.publisher_.publish(image_message)
+                self.get_logger().info('Publishing images')
             self.i += 1
 
 

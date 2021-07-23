@@ -1,3 +1,5 @@
 [console_scripts]
+drive_node = face_tracking_drone.drive_node:main
 drone_node = face_tracking_drone.drone_node:main
+opencv_node = face_tracking_drone.opencv_node:main
 

@@ -1,0 +1,24 @@
+running egg_info
+writing ../build/face_tracking_drone/face_tracking_drone.egg-info/PKG-INFO
+writing dependency_links to ../build/face_tracking_drone/face_tracking_drone.egg-info/dependency_links.txt
+writing entry points to ../build/face_tracking_drone/face_tracking_drone.egg-info/entry_points.txt
+writing requirements to ../build/face_tracking_drone/face_tracking_drone.egg-info/requires.txt
+writing top-level names to ../build/face_tracking_drone/face_tracking_drone.egg-info/top_level.txt
+reading manifest file '../build/face_tracking_drone/face_tracking_drone.egg-info/SOURCES.txt'
+writing manifest file '../build/face_tracking_drone/face_tracking_drone.egg-info/SOURCES.txt'
+running build
+running build_py
+copying face_tracking_drone/opencv_node.py -> /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build/lib/face_tracking_drone
+running install
+running install_lib
+copying /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build/lib/face_tracking_drone/opencv_node.py -> /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone
+byte-compiling /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone/opencv_node.py to opencv_node.cpython-38.pyc
+Sorry: TabError: inconsistent use of tabs and spaces in indentation (opencv_node.py, line 82)
+running install_data
+running install_egg_info
+removing '/home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone-0.0.0-py3.8.egg-info' (and everything under it)
+Copying ../build/face_tracking_drone/face_tracking_drone.egg-info to /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone-0.0.0-py3.8.egg-info
+running install_scripts
+Installing drone_node script to /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/face_tracking_drone
+Installing opencv_node script to /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/face_tracking_drone
+writing list of installed files to '/home/neha/projectTello/finalProject/src/build/face_tracking_drone/install.log'

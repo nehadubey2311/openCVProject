@@ -1,0 +1,23 @@
+[0.319s] Invoking command in '/home/neha/projectTello/finalProject/src/face_tracking_drone': PS1=(rosenv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/neha/projectTello/finalProject/install/face_tracking_drone/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/face_tracking_drone build --build-base /home/neha/projectTello/finalProject/build/face_tracking_drone/build install --prefix /home/neha/projectTello/finalProject/install/face_tracking_drone --record /home/neha/projectTello/finalProject/build/face_tracking_drone/install.log --single-version-externally-managed
+[0.588s] running egg_info
+[0.588s] writing ../../build/face_tracking_drone/face_tracking_drone.egg-info/PKG-INFO
+[0.588s] writing dependency_links to ../../build/face_tracking_drone/face_tracking_drone.egg-info/dependency_links.txt
+[0.589s] writing entry points to ../../build/face_tracking_drone/face_tracking_drone.egg-info/entry_points.txt
+[0.589s] writing requirements to ../../build/face_tracking_drone/face_tracking_drone.egg-info/requires.txt
+[0.589s] writing top-level names to ../../build/face_tracking_drone/face_tracking_drone.egg-info/top_level.txt
+[0.629s] reading manifest file '../../build/face_tracking_drone/face_tracking_drone.egg-info/SOURCES.txt'
+[0.630s] writing manifest file '../../build/face_tracking_drone/face_tracking_drone.egg-info/SOURCES.txt'
+[0.630s] running build
+[0.630s] running build_py
+[0.630s] running install
+[0.631s] running install_lib
+[0.633s] running install_data
+[0.634s] running install_egg_info
+[0.637s] removing '/home/neha/projectTello/finalProject/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone-0.0.0-py3.8.egg-info' (and everything under it)
+[0.637s] Copying ../../build/face_tracking_drone/face_tracking_drone.egg-info to /home/neha/projectTello/finalProject/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone-0.0.0-py3.8.egg-info
+[0.638s] running install_scripts
+[0.662s] Installing drive_node script to /home/neha/projectTello/finalProject/install/face_tracking_drone/lib/face_tracking_drone
+[0.662s] Installing drone_node script to /home/neha/projectTello/finalProject/install/face_tracking_drone/lib/face_tracking_drone
+[0.662s] Installing opencv_node script to /home/neha/projectTello/finalProject/install/face_tracking_drone/lib/face_tracking_drone
+[0.663s] writing list of installed files to '/home/neha/projectTello/finalProject/build/face_tracking_drone/install.log'
+[0.692s] Invoked command in '/home/neha/projectTello/finalProject/src/face_tracking_drone' returned '0': PS1=(rosenv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/neha/projectTello/finalProject/install/face_tracking_drone/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/face_tracking_drone build --build-base /home/neha/projectTello/finalProject/build/face_tracking_drone/build install --prefix /home/neha/projectTello/finalProject/install/face_tracking_drone --record /home/neha/projectTello/finalProject/build/face_tracking_drone/install.log --single-version-externally-managed

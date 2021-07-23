@@ -1,7 +1,6 @@
 # This node connects with drone and captures video frames
 # it will then publishs frames to /camera_frame topic
 import rclpy
-import numpy
 from rclpy.node import Node
 from sensor_msgs.msg import CameraInfo, Image
 from cv_bridge import CvBridge, CvBridgeError
@@ -31,14 +30,22 @@ class DroneNode(Node):
         drone.connect()
         print(drone.get_battery())
         drone.streamon()
+        drone.takeoff()
+        # Fly at the height of human face approximately
+        send_rc_control(0, 0, 20, 0)
         while True:
+            # Capture frame-by-frame
+            # This method returns True/False as well
+            # as the video frame.
+            # ret, img = self.cap.read()
             img = drone.get_frame_read().frame
             img = cv2.resize(img, (360, 240))
             image_message = self.br.cv2_to_imgmsg(img)
             # cv2.imshow("Image", img)
             # cv2.waitKey(1)
-            self.publisher_.publish(image_message)
-            self.get_logger().info('Publishing images')
+            if ret == True:
+                self.publisher_.publish(image_message)
+                self.get_logger().info('Publishing images')
             self.i += 1
 
 

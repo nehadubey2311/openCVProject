@@ -1,0 +1,39 @@
+[0.025s] Invoking command in '/home/neha/projectTello/finalProject/src/build/custom_messages': CMAKE_PREFIX_PATH=/opt/ros/foxy PS1=(rosenv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/neha/projectTello/finalProject/src/build/custom_messages -- -j8 -l8
+[0.115s] [  3%] Built target custom_messages__cpp
+[0.115s] [  6%] [32mBuilding C object CMakeFiles/custom_messages__rosidl_generator_c.dir/rosidl_generator_c/custom_messages/msg/detail/int_list__functions.c.o[0m
+[0.145s] [ 12%] [32mBuilding CXX object CMakeFiles/custom_messages__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/custom_messages/msg/int_list__type_support.cpp.o[0m
+[0.145s] [ 12%] [32mBuilding CXX object CMakeFiles/custom_messages__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/custom_messages/msg/detail/dds_fastrtps/int_list__type_support.cpp.o[0m
+[0.145s] [ 16%] [32mBuilding CXX object CMakeFiles/custom_messages__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/custom_messages/msg/detail/int_list__type_support.cpp.o[0m
+[0.195s] In file included from [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_generator_c/custom_messages/msg/detail/int_list__functions.h:19[m[K,
+[0.196s]                  from [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_generator_c/custom_messages/msg/detail/int_list__functions.c:4[m[K:
+[0.196s] [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_generator_c/custom_messages/msg/detail/int_list__struct.h:22:10:[m[K [01;31m[Kfatal error: [m[Kcustom_messages/msg/detail/int32__struct.h: No such file or directory
+[0.196s]    22 | #include [01;31m[K"custom_messages/msg/detail/int32__struct.h"[m[K
+[0.196s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[0.196s] compilation terminated.
+[0.198s] make[2]: *** [CMakeFiles/custom_messages__rosidl_generator_c.dir/build.make:92: CMakeFiles/custom_messages__rosidl_generator_c.dir/rosidl_generator_c/custom_messages/msg/detail/int_list__functions.c.o] Error 1
+[0.199s] make[1]: *** [CMakeFiles/Makefile2:273: CMakeFiles/custom_messages__rosidl_generator_c.dir/all] Error 2
+[0.199s] make[1]: *** Waiting for unfinished jobs....
+[0.239s] In file included from [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_typesupport_introspection_cpp/custom_messages/msg/detail/int_list__type_support.cpp:12[m[K:
+[0.239s] [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_generator_cpp/custom_messages/msg/detail/int_list__struct.hpp:19:10:[m[K [01;31m[Kfatal error: [m[Kcustom_messages/msg/detail/int32__struct.hpp: No such file or directory
+[0.239s]    19 | #include [01;31m[K"custom_messages/msg/detail/int32__struct.hpp"[m[K
+[0.239s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[0.240s] compilation terminated.
+[0.241s] make[2]: *** [CMakeFiles/custom_messages__rosidl_typesupport_introspection_cpp.dir/build.make:78: CMakeFiles/custom_messages__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/custom_messages/msg/detail/int_list__type_support.cpp.o] Error 1
+[0.241s] make[1]: *** [CMakeFiles/Makefile2:442: CMakeFiles/custom_messages__rosidl_typesupport_introspection_cpp.dir/all] Error 2
+[0.252s] In file included from [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_typesupport_cpp/custom_messages/msg/int_list__type_support.cpp:7[m[K:
+[0.252s] [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_generator_cpp/custom_messages/msg/detail/int_list__struct.hpp:19:10:[m[K [01;31m[Kfatal error: [m[Kcustom_messages/msg/detail/int32__struct.hpp: No such file or directory
+[0.252s]    19 | #include [01;31m[K"custom_messages/msg/detail/int32__struct.hpp"[m[K
+[0.252s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[0.252s] compilation terminated.
+[0.252s] In file included from [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_typesupport_fastrtps_cpp/custom_messages/msg/detail/int_list__rosidl_typesupport_fastrtps_cpp.hpp:11[m[K,
+[0.253s]                  from [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_typesupport_fastrtps_cpp/custom_messages/msg/detail/dds_fastrtps/int_list__type_support.cpp:4[m[K:
+[0.253s] [01m[K/home/neha/projectTello/finalProject/src/build/custom_messages/rosidl_generator_cpp/custom_messages/msg/detail/int_list__struct.hpp:19:10:[m[K [01;31m[Kfatal error: [m[Kcustom_messages/msg/detail/int32__struct.hpp: No such file or directory
+[0.253s]    19 | #include [01;31m[K"custom_messages/msg/detail/int32__struct.hpp"[m[K
+[0.253s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[0.253s] compilation terminated.
+[0.253s] make[2]: *** [CMakeFiles/custom_messages__rosidl_typesupport_cpp.dir/build.make:73: CMakeFiles/custom_messages__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/custom_messages/msg/int_list__type_support.cpp.o] Error 1
+[0.254s] make[2]: *** [CMakeFiles/custom_messages__rosidl_typesupport_fastrtps_cpp.dir/build.make:78: CMakeFiles/custom_messages__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/custom_messages/msg/detail/dds_fastrtps/int_list__type_support.cpp.o] Error 1
+[0.254s] make[1]: *** [CMakeFiles/Makefile2:469: CMakeFiles/custom_messages__rosidl_typesupport_cpp.dir/all] Error 2
+[0.254s] make[1]: *** [CMakeFiles/Makefile2:415: CMakeFiles/custom_messages__rosidl_typesupport_fastrtps_cpp.dir/all] Error 2
+[0.254s] make: *** [Makefile:141: all] Error 2
+[0.286s] Invoked command in '/home/neha/projectTello/finalProject/src/build/custom_messages' returned '2': CMAKE_PREFIX_PATH=/opt/ros/foxy PS1=(rosenv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/neha/projectTello/finalProject/src/build/custom_messages -- -j8 -l8

@@ -1,0 +1,4 @@
+[0.000000] (-) TimerEvent: {}
+[0.000773] (-) JobUnselected: {'identifier': 'custom_messages'}
+[0.000804] (-) JobUnselected: {'identifier': 'face_tracking_drone'}
+[0.001039] (-) EventReactorShutdown: {}

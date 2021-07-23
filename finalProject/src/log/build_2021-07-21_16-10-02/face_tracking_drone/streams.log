@@ -1,0 +1,28 @@
+[0.249s] Invoking command in '/home/neha/projectTello/finalProject/src/face_tracking_drone': PS1=(rosenv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/face_tracking_drone build --build-base /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build install --prefix /home/neha/projectTello/finalProject/src/install/face_tracking_drone --record /home/neha/projectTello/finalProject/src/build/face_tracking_drone/install.log --single-version-externally-managed
+[0.455s] running egg_info
+[0.456s] writing ../build/face_tracking_drone/face_tracking_drone.egg-info/PKG-INFO
+[0.456s] writing dependency_links to ../build/face_tracking_drone/face_tracking_drone.egg-info/dependency_links.txt
+[0.456s] writing entry points to ../build/face_tracking_drone/face_tracking_drone.egg-info/entry_points.txt
+[0.457s] writing requirements to ../build/face_tracking_drone/face_tracking_drone.egg-info/requires.txt
+[0.457s] writing top-level names to ../build/face_tracking_drone/face_tracking_drone.egg-info/top_level.txt
+[0.488s] reading manifest file '../build/face_tracking_drone/face_tracking_drone.egg-info/SOURCES.txt'
+[0.488s] writing manifest file '../build/face_tracking_drone/face_tracking_drone.egg-info/SOURCES.txt'
+[0.489s] running build
+[0.489s] running build_py
+[0.489s] copying face_tracking_drone/opencv_node.py -> /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build/lib/face_tracking_drone
+[0.489s] copying face_tracking_drone/drone_node.py -> /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build/lib/face_tracking_drone
+[0.489s] running install
+[0.490s] running install_lib
+[0.491s] copying /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build/lib/face_tracking_drone/opencv_node.py -> /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone
+[0.491s] copying /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build/lib/face_tracking_drone/drone_node.py -> /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone
+[0.492s] byte-compiling /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone/opencv_node.py to opencv_node.cpython-38.pyc
+[0.493s] byte-compiling /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone/drone_node.py to drone_node.cpython-38.pyc
+[0.494s] running install_data
+[0.494s] running install_egg_info
+[0.496s] removing '/home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone-0.0.0-py3.8.egg-info' (and everything under it)
+[0.496s] Copying ../build/face_tracking_drone/face_tracking_drone.egg-info to /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages/face_tracking_drone-0.0.0-py3.8.egg-info
+[0.497s] running install_scripts
+[0.512s] Installing drone_node script to /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/face_tracking_drone
+[0.513s] Installing opencv_node script to /home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/face_tracking_drone
+[0.513s] writing list of installed files to '/home/neha/projectTello/finalProject/src/build/face_tracking_drone/install.log'
+[0.533s] Invoked command in '/home/neha/projectTello/finalProject/src/face_tracking_drone' returned '0': PS1=(rosenv) \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ PYTHONPATH=/home/neha/projectTello/finalProject/src/install/face_tracking_drone/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../build/face_tracking_drone build --build-base /home/neha/projectTello/finalProject/src/build/face_tracking_drone/build install --prefix /home/neha/projectTello/finalProject/src/install/face_tracking_drone --record /home/neha/projectTello/finalProject/src/build/face_tracking_drone/install.log --single-version-externally-managed
