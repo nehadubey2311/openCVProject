@@ -6,6 +6,7 @@ from sensor_msgs.msg import CameraInfo, Image
 from cv_bridge import CvBridge, CvBridgeError
 
 from std_msgs.msg import String
+from std_msgs.msg import Int16MultiArray
 
 from djitellopy import Tello
 import cv2, math, time
@@ -25,11 +26,24 @@ class DroneNode(Node):
         # Used to convert between ROS and OpenCV images
         self.br = CvBridge()
 
+        # Create the subscriber. This subscriber will receive an Image
+        # from the video_frames topic. The queue size is 10 messages.
+        self.subscription = self.create_subscription(
+          Int16MultiArray, 
+          'drive_topic', 
+          self.listener_callback, 
+          10)
+
+        self.array = Int16MultiArray()
+
     def timer_callback(self):
         # drone = Tello()
         # drone.connect()
         # print(drone.get_battery())
         # drone.streamon()
+        # drone.takeoff()
+        # Fly at the height of human face approximately
+        # drone.send_rc_control(0, 0, 20, 0)
         while True:
             # Capture frame-by-frame
             # This method returns True/False as well
@@ -44,6 +58,19 @@ class DroneNode(Node):
                 self.publisher_.publish(image_message)
                 self.get_logger().info('Publishing images')
             self.i += 1
+
+    def listener_callback(self, data):
+        """
+        Callback function.
+        """
+        # Display the message on the console
+        print(drone.get_battery())
+        print("Inside listener callback")
+        self.get_logger().info('Receiving drone driving instructions')
+        speed = data.data[0]
+        fb = data.data[1]
+        print(speed, fb)
+        # drone.send_rc_control(0, fb, 0, speed)
 
 
 def main(args=None):

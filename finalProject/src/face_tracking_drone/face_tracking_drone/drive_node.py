@@ -32,13 +32,13 @@ class DriveNode(Node):
 	    Callback function.
 	    """
 	    # Display the message on the console
-        drone = Tello()
-        drone.connect()
-        print(drone.get_battery())
+	    # drone = Tello()
+	    # drone.connect()
+	    # print(drone.get_battery())
 	    self.get_logger().info('Receiving drone driving instructions')
 	    speed = data.data[0]
 	    fb = data.data[1]
-	    drone.send_rc_control(0, fb, 0, speed)
+	    # drone.send_rc_control(0, fb, 0, speed)
 	#     self.send_driving_directions(speed, fb)
 
 	# def send_driving_directions(self, speed, fb):
