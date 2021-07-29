@@ -65,8 +65,8 @@ class OpenCVNode(Node):
   def captureFace(self, img):
   	faceCascade = cv2.CascadeClassifier("/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
   	imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-  	# faces = faceCascade.detectMultiScale(imgGray, 1.2, 8)
-  	faces = faceCascade.detectMultiScale(imgGray)
+  	faces = faceCascade.detectMultiScale(imgGray, 1.1, 5)
+  	# faces = faceCascade.detectMultiScale(imgGray)
 
   	myFaceListCenter = []
   	myFaceListArea = []
@@ -74,8 +74,8 @@ class OpenCVNode(Node):
   	# print(len(faces))
   	for (x, y, w, h) in faces:
   		cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-  		cx = x + w // 2
-  		cy = y + h //2
+  		cx = x + w//2
+  		cy = y + h//2
   		area = w * h
   		cv2.circle(img, (cx, cy), 5, (0, 0,255), cv2.FILLED)
   		myFaceListCenter.append([cx, cy])
@@ -93,8 +93,9 @@ class OpenCVNode(Node):
   	area = info[1]
   	fb = 0
 
-  	error = x - w // 2
+  	error = x - w//2
   	speed = pid[0] * error + pid[1] * (error - pError)
+    # limit drone speed between +/- 100
   	speed = int(np.clip(speed, -100, 100))
 
   	if area > self.fbRange[0] and area < self.fbRange[1]:
