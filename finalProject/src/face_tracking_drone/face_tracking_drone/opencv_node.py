@@ -35,7 +35,7 @@ class OpenCVNode(Node):
     # Used to convert between ROS and OpenCV images
     self.br = CvBridge()
     self.width, self.height = 360, 240
-    self.fbRange = [6200, 6800]
+    self.fbRange = [25000, 40000]
     self.pid = [0.4, 0.4, 0]
     self.pError = 0
     # initialize array to send speed data to drive_topic
@@ -46,7 +46,7 @@ class OpenCVNode(Node):
     Callback function.
     """
     # Display the message on the console
-    self.get_logger().info('Receiving video frame')
+    # self.get_logger().info('Receiving video frame')
  
     # Convert ROS Image message to OpenCV image
     current_frame = self.br.imgmsg_to_cv2(data)
@@ -58,80 +58,81 @@ class OpenCVNode(Node):
       self.pError, speed, fb = self.trackFace(info, self.width, self.pid, self.pError)
       self.array.data = [speed, fb]
       self.publisher_.publish(self.array)
-      self.get_logger().info('Publishing fb and yaw speed')
+      # self.get_logger().info('Publishing fb and yaw speed')
       cv2.imshow("Image", img)
       cv2.waitKey(1)
 
   def captureFace(self, img):
-  	faceCascade = cv2.CascadeClassifier("/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
-  	imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-  	faces = faceCascade.detectMultiScale(imgGray, 1.1, 5)
-  	# faces = faceCascade.detectMultiScale(imgGray)
+    faceCascade = cv2.CascadeClassifier("/usr/share/opencv4/haarcascades/haarcascade_frontalface_default.xml")
+    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    faces = faceCascade.detectMultiScale(imgGray, 1.1, 5)
+    # faces = faceCascade.detectMultiScale(imgGray)
 
-  	myFaceListCenter = []
-  	myFaceListArea = []
-  	# print("faces received are: {}".format(type(faces)))
-  	# print(len(faces))
-  	for (x, y, w, h) in faces:
-  		cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-  		cx = x + w//2
-  		cy = y + h//2
-  		area = w * h
-  		cv2.circle(img, (cx, cy), 5, (0, 0,255), cv2.FILLED)
-  		myFaceListCenter.append([cx, cy])
-  		myFaceListArea.append(area)
-  		if len(myFaceListArea) != 0:
-  			index = myFaceListArea.index(max(myFaceListArea))
-  			return img, [myFaceListCenter[index], myFaceListArea[index]]
-  		else:
-  			return 0, [[0, 0], 0]
-  	# When no faces were detected return below
-  	return 0, [[0, 0], 0]
+    myFaceListCenter = []
+    myFaceListArea = []
+    # print("faces received are: {}".format(type(faces)))
+    # print(len(faces))
+    for (x, y, w, h) in faces:
+      cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
+      print(f"area is: {(x+w)*(y+h)}")
+      cx = x + w//2
+      cy = y + h//2
+      area = w * h
+      cv2.circle(img, (cx, cy), 5, (0, 0,255), cv2.FILLED)
+      myFaceListCenter.append([cx, cy])
+      myFaceListArea.append(area)
+      if len(myFaceListArea) != 0:
+        index = myFaceListArea.index(max(myFaceListArea))
+        return img, [myFaceListCenter[index], myFaceListArea[index]]
+      else:
+        return 0, [[0, 0], 0]
+    # When no faces were detected return below
+    return 0, [[0, 0], 0]
 
   def trackFace(self, info, w, pid, pError):
-  	x, y = info[0]
-  	area = info[1]
-  	fb = 0
+    x, y = info[0]
+    area = info[1]
+    fb = 0
 
-  	error = x - w//2
-  	speed = pid[0] * error + pid[1] * (error - pError)
+    error = x - w//2
+    speed = pid[0] * error + pid[1] * (error - pError)
     # limit drone speed between +/- 100
-  	speed = int(np.clip(speed, -100, 100))
+    speed = int(np.clip(speed, -100, 100))
 
-  	if area > self.fbRange[0] and area < self.fbRange[1]:
-  		fb = 0
-  	elif area > self.fbRange[1]:
-  		fb = -20
-  	elif area < self.fbRange[0] and area != 0:
-  		fb = 20
+    if area > self.fbRange[0] and area < self.fbRange[1]:
+      fb = 0
+    elif area > self.fbRange[1]:
+      fb = -20
+    elif area < self.fbRange[0] and area != 0:
+      fb = 20
 
-  	# if drone didn't find any face then land
-  	if x == 0:
-  		speed = 0
-  		error = 0
+    # if drone didn't find any face then land
+    if x == 0:
+      speed = 0
+      error = 0
 
-  	print(speed, fb)
+    print(speed, fb)
 
-  	# tello.send_rc_control(0, fb, 0, speed)
-  	return error, speed, fb
+    # tello.send_rc_control(0, fb, 0, speed)
+    return error, speed, fb
 
 def main(args=None):
     # Initialize the rclpy library
-	rclpy.init(args=args)
+  rclpy.init(args=args)
 
-	# Create the node
-	opencv_node = OpenCVNode()
+  # Create the node
+  opencv_node = OpenCVNode()
 
-	# Spin the node so the callback function is called.
-	rclpy.spin(opencv_node)
+  # Spin the node so the callback function is called.
+  rclpy.spin(opencv_node)
 
-	# Destroy the node explicitly
-	# (optional - otherwise it will be done automatically
-	# when the garbage collector destroys the node object)
-	opencv_node.destroy_node()
+  # Destroy the node explicitly
+  # (optional - otherwise it will be done automatically
+  # when the garbage collector destroys the node object)
+  opencv_node.destroy_node()
 
-	# Shutdown the ROS client library for Python
-	rclpy.shutdown()
+  # Shutdown the ROS client library for Python
+  rclpy.shutdown()
   
 if __name__ == '__main__':
-  	main()
+    main()

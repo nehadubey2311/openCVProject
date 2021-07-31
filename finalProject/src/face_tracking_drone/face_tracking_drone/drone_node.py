@@ -10,15 +10,18 @@ from std_msgs.msg import Int16MultiArray
 
 from djitellopy import Tello
 import cv2, math, time
+import threading
 
 
 class DroneNode(Node):
 
     def __init__(self):
         super().__init__('drone_node')
+        self.drone = Tello()
+        self.drone.connect()
         self.publisher_ = self.create_publisher(Image, 'camera_frame', 10)
-        timer_period = 0.0001  # seconds
-        self.timer = self.create_timer(timer_period, self.timer_callback)
+        # timer_period = 0.0001  # seconds
+        # self.timer = self.create_timer(timer_period, self.timer_callback)
         self.i = 0
 
         # Create a VideoCapture object
@@ -38,7 +41,8 @@ class DroneNode(Node):
 
         self.array = Int16MultiArray()
 
-        
+        self.timer_callback()
+
 
     def listener_callback(self, data):
         """
@@ -46,42 +50,49 @@ class DroneNode(Node):
         """
         # Display the message on the console
         # print(drone.get_battery())
-        print("Inside listener callback")
-        self.get_logger().info('Receiving drone driving instructions')
+        # print("Inside listener callback")
+        # self.get_logger().info('Receiving drone driving instructions')
         speed = data.data[0]
         fb = data.data[1]
         print(speed, fb)
-        # drone.send_rc_control(0, fb, 0, speed)
+        self.drone.send_rc_control(0, fb, 0, speed)
 
-    def timer_callback(self):
-        drone = Tello()
-        drone.connect()
-        print(drone.get_battery())
-        drone.streamon()
-        # drone.takeoff()
+    def timer_callback(self, rate=0.03):
+        print(self.drone.get_battery())
+        self.drone.streamon()
+        self.drone.takeoff()
         # drone.move_up(10)
         # time.sleep(2)
         # print(f"Drone initial height is: {drone.get_height()}")
         # Fly at the height of human face approximately
-        # drone.send_rc_control(0, 0, 25, 0)
+        self.drone.send_rc_control(0, 0, 10, 0)
         # print(f"Drone height is: {drone.get_height()}")
-        # time.sleep(2.2)
-        # print(f"Drone height is: {drone.get_height()}")
+        time.sleep(1)
+        # print(f"Drone height is: {self.drone.get_height()}")
 
-        # while True:
-        # Capture frame-by-frame
-        # This method returns True/False as well
-        # as the video frame.
-        # ret, img = self.cap.read()
-        img = drone.get_frame_read().frame
-        # img = cv2.resize(img, (360, 240))
-        image_message = self.br.cv2_to_imgmsg(img)
-        # cv2.imshow("Image", img)
-        # cv2.waitKey(1)
-        # if ret == True:
-        self.publisher_.publish(image_message)
-        self.get_logger().info('Publishing images')
+        def video_capture_thread():
+            frame_read = self.drone.get_frame_read()
+            while True:
+                # Capture frame-by-frame
+                # This method returns True/False as well
+                # as the video frame.
+                # ret, img = self.cap.read()
+                img = frame_read.frame
+                img = cv2.resize(img, (360, 240))
+                image_message = self.br.cv2_to_imgmsg(img)
+                # cv2.imshow("Image", img)
+                # cv2.waitKey(1)
+                # if ret == True:
+                self.publisher_.publish(image_message)
+                # self.get_logger().info('Publishing images')
+
+                time.sleep(rate)
+
         self.i += 1
+        thread = threading.Thread(target=video_capture_thread)
+        thread.start()
+        return thread
+        
 
 
 def main(args=None):
