@@ -5,25 +5,33 @@ from rclpy.node import Node
 from sensor_msgs.msg import CameraInfo, Image
 from cv_bridge import CvBridge, CvBridgeError
 
-from std_msgs.msg import String
+from std_msgs.msg import Int8
 from std_msgs.msg import Int16MultiArray
 
 from djitellopy import Tello
 import cv2, math, time
+import threading
 
 
 class DroneNode(Node):
-
+    """
+    Create a DroneNode class, which is a subclass of the Node class.
+    """
     def __init__(self):
+        """
+        Class constructor to set up the node
+        """
+        # Initiate the Node class's constructor and give it a name
         super().__init__('drone_node')
+        self.drone = Tello()
+        self.drone.connect()
+        self.drone.streamon()
+        self.drone.takeoff()
         self.publisher_ = self.create_publisher(Image, 'camera_frame', 10)
-        timer_period = 0.0001  # seconds
-        self.timer = self.create_timer(timer_period, self.timer_callback)
+
         self.i = 0
 
         # Create a VideoCapture object
-        # The argument '0' gets the default webcam.
-        # self.cap = cv2.VideoCapture(0)
         # Used to convert between ROS and OpenCV images
         self.br = CvBridge()
 
@@ -34,54 +42,61 @@ class DroneNode(Node):
           'drive_topic', 
           self.listener_callback, 
           10)
-        # self.subscription # prevent unused variable warning
+
+        # Create second subscriber. This subscriber will keep listening
+        # for keyboard interrupts for landing
+        self.subscription = self.create_subscription(
+          Int8, 
+          'override_topic', 
+          self.override_callback, 
+          10)
 
         self.array = Int16MultiArray()
 
-        
+        self.capture_frames()
+
 
     def listener_callback(self, data):
         """
         Callback function.
         """
-        # Display the message on the console
-        # print(drone.get_battery())
-        print("Inside listener callback")
-        self.get_logger().info('Receiving drone driving instructions')
+        # Commenting out debugging logs
+        # self.get_logger().info('Receiving drone driving instructions')
         speed = data.data[0]
         fb = data.data[1]
-        print(speed, fb)
-        # drone.send_rc_control(0, fb, 0, speed)
+        self.drone.send_rc_control(0, fb, 0, speed)
 
-    def timer_callback(self):
-        drone = Tello()
-        drone.connect()
-        print(drone.get_battery())
-        drone.streamon()
-        # drone.takeoff()
-        # drone.move_up(10)
-        # time.sleep(2)
-        # print(f"Drone initial height is: {drone.get_height()}")
-        # Fly at the height of human face approximately
-        # drone.send_rc_control(0, 0, 25, 0)
-        # print(f"Drone height is: {drone.get_height()}")
-        # time.sleep(2.2)
-        # print(f"Drone height is: {drone.get_height()}")
+    def override_callback(self, data):
+        """
+        Callback function for manual override
+        """
+        should_land = data.data
+        print(f"heard landing: {should_land}")
+        if should_land:
+            self.drone.land()
+            pass
 
-        # while True:
-        # Capture frame-by-frame
-        # This method returns True/False as well
-        # as the video frame.
-        # ret, img = self.cap.read()
-        img = drone.get_frame_read().frame
-        # img = cv2.resize(img, (360, 240))
-        image_message = self.br.cv2_to_imgmsg(img)
-        # cv2.imshow("Image", img)
-        # cv2.waitKey(1)
-        # if ret == True:
-        self.publisher_.publish(image_message)
-        self.get_logger().info('Publishing images')
+    def capture_frames(self, rate=0.03):
+        """
+        Function that captures frames from drone and publishes
+        them to 'camera_frame' topic
+        """
+        def video_capture_thread():
+            frame_read = self.drone.get_frame_read()
+            while True:
+                # Capture frame-by-frame
+                img = frame_read.frame
+                img = cv2.resize(img, (360, 240))
+                image_message = self.br.cv2_to_imgmsg(img)
+                self.publisher_.publish(image_message)
+
+                time.sleep(rate)
+
         self.i += 1
+        thread = threading.Thread(target=video_capture_thread)
+        thread.start()
+        return thread
+        
 
 
 def main(args=None):

@@ -1,4 +1,7 @@
 from setuptools import setup
+import os
+from glob import glob
+from setuptools import setup
 
 package_name = 'face_tracking_drone'
 
@@ -10,6 +13,7 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name), glob('launch/*.launch.py')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
@@ -22,7 +26,7 @@ setup(
         'console_scripts': [
             'drone_node = face_tracking_drone.drone_node:main',
             'opencv_node = face_tracking_drone.opencv_node:main',
-            'drive_node = face_tracking_drone.drive_node:main'
+            'override_node = face_tracking_drone.override_node:main'
         ],
     },
 )
