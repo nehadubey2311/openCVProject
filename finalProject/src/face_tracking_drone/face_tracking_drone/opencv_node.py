@@ -1,5 +1,6 @@
 # This will subscribe to /camera_frame topic to
-# receive camera frames from drone
+# receive camera frames from drone. Also after image processing 
+# it will publish drone driving instructions to /drive_topic
 import rclpy # Python library for ROS 2
 from rclpy.node import Node # Handles the creation of nodes
 from sensor_msgs.msg import Image # Image is the message type
@@ -35,7 +36,7 @@ class OpenCVNode(Node):
     # Used to convert between ROS and OpenCV images
     self.br = CvBridge()
     self.width, self.height = 360, 240
-    self.fbRange = [25000, 40000]
+    self.fbRange = [4000, 6000]
     self.pid = [0.4, 0.4, 0]
     self.pError = 0
     # initialize array to send speed data to drive_topic
@@ -78,7 +79,7 @@ class OpenCVNode(Node):
       cx = x + w//2
       cy = y + h//2
       area = w * h
-      cv2.circle(img, (cx, cy), 5, (0, 0,255), cv2.FILLED)
+      # cv2.circle(img, (cx, cy), 5, (0, 0,255), cv2.FILLED)
       myFaceListCenter.append([cx, cy])
       myFaceListArea.append(area)
       if len(myFaceListArea) != 0:
@@ -100,10 +101,13 @@ class OpenCVNode(Node):
     speed = int(np.clip(speed, -100, 100))
 
     if area > self.fbRange[0] and area < self.fbRange[1]:
+      print(f"setting speed 0 area is {area}")
       fb = 0
     elif area > self.fbRange[1]:
+      print(f"setting speed -20 area is {area}")
       fb = -20
     elif area < self.fbRange[0] and area != 0:
+      print(f"setting speed 20 area is {area}")
       fb = 20
 
     # if drone didn't find any face then land
@@ -117,7 +121,7 @@ class OpenCVNode(Node):
     return error, speed, fb
 
 def main(args=None):
-    # Initialize the rclpy library
+  # Initialize the rclpy library
   rclpy.init(args=args)
 
   # Create the node

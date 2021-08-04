@@ -5,7 +5,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import CameraInfo, Image
 from cv_bridge import CvBridge, CvBridgeError
 
-from std_msgs.msg import String
+from std_msgs.msg import Int8
 from std_msgs.msg import Int16MultiArray
 
 from djitellopy import Tello
@@ -19,9 +19,10 @@ class DroneNode(Node):
         super().__init__('drone_node')
         self.drone = Tello()
         self.drone.connect()
+        self.drone.streamon()
+        self.drone.takeoff()
         self.publisher_ = self.create_publisher(Image, 'camera_frame', 10)
-        # timer_period = 0.0001  # seconds
-        # self.timer = self.create_timer(timer_period, self.timer_callback)
+
         self.i = 0
 
         # Create a VideoCapture object
@@ -39,9 +40,17 @@ class DroneNode(Node):
           10)
         # self.subscription # prevent unused variable warning
 
+        # Create second subscriber. This subscriber will keep listening
+        # for keyboard interrupts for landing
+        self.subscription = self.create_subscription(
+          Int8, 
+          'override_topic', 
+          self.override_callback, 
+          10)
+
         self.array = Int16MultiArray()
 
-        self.timer_callback()
+        self.capture_frames()
 
 
     def listener_callback(self, data):
@@ -57,17 +66,25 @@ class DroneNode(Node):
         print(speed, fb)
         self.drone.send_rc_control(0, fb, 0, speed)
 
-    def timer_callback(self, rate=0.03):
-        print(self.drone.get_battery())
-        self.drone.streamon()
-        self.drone.takeoff()
+    def override_callback(self, data):
+        """
+        Callback function for manual override
+        """
+        should_land = data.data
+        print(f"heard landing: {should_land}")
+        if should_land:
+            self.drone.land()
+            pass
+
+    def capture_frames(self, rate=0.03):
+        # print(f"drone battery is: {self.drone.get_battery()}")
         # drone.move_up(10)
         # time.sleep(2)
         # print(f"Drone initial height is: {drone.get_height()}")
         # Fly at the height of human face approximately
-        self.drone.send_rc_control(0, 0, 10, 0)
+        # self.drone.send_rc_control(0, 0, 25, 0)
         # print(f"Drone height is: {drone.get_height()}")
-        time.sleep(1)
+        # time.sleep(1)
         # print(f"Drone height is: {self.drone.get_height()}")
 
         def video_capture_thread():
