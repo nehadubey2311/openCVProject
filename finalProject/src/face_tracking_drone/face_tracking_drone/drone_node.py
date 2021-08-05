@@ -60,7 +60,7 @@ class DroneNode(Node):
         """
         Callback function.
         """
-        # Commenting out debugging logs
+        # Commenting out Debugging logs
         # self.get_logger().info('Receiving drone driving instructions')
         speed = data.data[0]
         fb = data.data[1]
